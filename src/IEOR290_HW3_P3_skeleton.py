@@ -45,8 +45,8 @@ if __name__ == "__main__":
     # (Use numpy.argmax)
 
     #==== Print accuracy ====
-    print("Train accuracy: {0}".format(metrics.accuracy_score(labels_train, pred_labels_train)))
-    print("Test accuracy: {0}".format(metrics.accuracy_score(labels_test, pred_labels_test)))
+    #print("Train accuracy: {0}".format(metrics.accuracy_score(labels_train, pred_labels_train)))
+    #print("Test accuracy: {0}".format(metrics.accuracy_score(labels_test, pred_labels_test)))
 
     #==== Plot first mis-classified data ====
     # (Use the provided plot(x) function)
