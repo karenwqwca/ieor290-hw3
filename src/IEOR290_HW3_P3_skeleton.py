@@ -34,19 +34,36 @@ if __name__ == "__main__":
 
     #==== One hot encode ====
     # (Use sklearn.preprocessing.OneHotEncoder)
+    enc = OneHotEncoder()
+    enc.fit(labels_train)
+
+    #print(enc.n_values_)
+    #print(enc.feature_indices_)
+    print(enc.transform(1).toarray())
+    labels_train_ohe = enc.transform(labels_train).toarray()
+    print(type(X_train))
+    print(X_train.shape)
+    print(type(labels_train))
+    print(labels_train_ohe.shape)
 
     #==== Train ====
     # (Use sklearn.linear_model.LinearRegression)
+    lmodel = linear_model.LinearRegression()
+    lmodel.fit(X_train, labels_train_ohe)
 
     #==== Predict ====
     # (Use sklearn.linear_model.LinearRegression)
+    Y_predict_train = lmodel.predict(X_train)
+    Y_predict_test = lmodel.predict(X_test)
 
     #==== Decode ====
     # (Use numpy.argmax)
+    pred_labels_test = np.argmax(Y_predict_test, axis=1)
+    pred_labels_train = np.argmax(Y_predict_train, axis=1)
 
     #==== Print accuracy ====
-    #print("Train accuracy: {0}".format(metrics.accuracy_score(labels_train, pred_labels_train)))
-    #print("Test accuracy: {0}".format(metrics.accuracy_score(labels_test, pred_labels_test)))
+    print("Train accuracy: {0}".format(metrics.accuracy_score(labels_train, pred_labels_train)))
+    print("Test accuracy: {0}".format(metrics.accuracy_score(labels_test, pred_labels_test)))
 
     #==== Plot first mis-classified data ====
     # (Use the provided plot(x) function)
