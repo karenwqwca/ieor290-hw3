@@ -22,7 +22,7 @@ def load_dataset():
 
 def plot(x):
     image = x.reshape(28, 28)
-    plt.imshow(image, cmap='grey')
+    plt.imshow(image, cmap='Greys')
     plt.axis('off')
 
     plt.show()
@@ -31,10 +31,12 @@ if __name__ == "__main__":
 
     #==== Read data ====
     X_train, labels_train, X_test, labels_test = load_dataset()
+    print('x_Train',X_train)
+    print('labels_train',labels_train)
 
     #==== One hot encode ====
     # (Use sklearn.preprocessing.OneHotEncoder)
-    enc = OneHotEncoder()
+    enc = OneHotEncoder(categorical_features=[0], handle_unknown='error', n_values='auto', sparse=True)
     enc.fit(labels_train)
 
     #print(enc.n_values_)
@@ -49,6 +51,7 @@ if __name__ == "__main__":
     #==== Train ====
     # (Use sklearn.linear_model.LinearRegression)
     lmodel = linear_model.LinearRegression()
+    # lmodel = linear_model.RidgeCV(alphas=[0.1, 1, 5, 10, 20, 40.5, 50, 50.5, 51])
     lmodel.fit(X_train, labels_train_ohe)
 
     #==== Predict ====
@@ -67,3 +70,10 @@ if __name__ == "__main__":
 
     #==== Plot first mis-classified data ====
     # (Use the provided plot(x) function)
+    for i in range(0, 10000):
+        if pred_labels_test[i] != labels_test[i]:
+            print(i)
+            print('Truth', labels_test[i])
+            print('Prediction', pred_labels_test[i])
+            plot(X_test[i])
+            break
